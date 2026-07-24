@@ -13,8 +13,11 @@ There's also a weighted variant, where Short tries to minimize the total weight 
 
 # Project structure
 Core game engine: data structures (Vertex, Edge, GameGraph, GameState) and game logic (new_game, valid_moves, make_move!, check_winner)
+
 Playable visualization: two humans can play a full game
+
 Optimal strategy (unweighted game): a provably optimal computer strategy via spanning trees, co-spanning trees, and matroid duality (Kishi-Kajitani maximally-distant tree algorithm)
+
 Heuristic strategy (weighted game): experimental strategies for the open weighted variant, tuned against self-play
 
 # Status: Phase 1 
