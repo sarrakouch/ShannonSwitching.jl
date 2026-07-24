@@ -118,4 +118,38 @@ function check_winner(state::GameState)::Union{Symbol, Nothing}
     end
 end
 
+#function random_graph
+#Generates a random connected graph with (n) vertices and (m) edges. *
+#Vertex 1 is the source (s), and vertex (n) is the target (t). 
+#In the weighted case, edge weights are drawn uniformly from ([1,10]).
 
+
+function random_graph(n::Int, m::Int; weighted=false)::GameGraph
+    vertices = [Vertex(i) for i in 1:n]                                             # create n vertices with ids 1 to n
+    edges = Edge[]                                                                  # empty list for the graph's edges
+    edge_id = 1                                                                     # starting value
+    existing = Set{Tuple{Int,Int}}()                                                # stores all edges already present, as index pairs
+    for i in 1:n-1
+        w = weighted ? rand() * 9 + 1 : 0.0                                         # if weighted is true, use a random weight, otherwise 0.0
+        push!(edges, Edge(edge_id, vertices[i], vertices[i+1], w, :neutral))        # add an edge between vertex i and i+1
+        push!(existing, (i, i+1))                                                   # mark this edge as present
+        edge_id += 1                                                                # increment edge id
+    end
+    while length(edges) < m                                                         # add more edges until m is reached
+        u = rand(1:n)                                                               # pick a random first vertex index
+        v = rand(1:n)                                                               # pick a random second vertex index
+ 
+        u == v && continue                                                          # if u == v, pick again
+        a, b = min(u,v), max(u,v)                                                   # sort both endpoints
+        (a, b) in existing && continue                                              # if the edge already exists, skip it
+        w = weighted ? rand() * 9 + 1 : 0.0
+ 
+        push!(edges, Edge(edge_id, vertices[a], vertices[b], w, :neutral))          # add the new random edge to the list
+ 
+        push!(existing, (a,b))                                                      # mark this edge as present
+        edge_id += 1
+    end
+    s = vertices[1]                                                                 # start vertex is the first vertex
+    t = vertices[n]                                                                 # target vertex is the last vertex
+    return GameGraph(vertices, edges, s, t)                                         # build and return the complete game graph
+end
