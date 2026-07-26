@@ -20,11 +20,11 @@ Optimal strategy (unweighted game): a provably optimal computer strategy via spa
 
 Heuristic strategy (weighted game): experimental strategies for the open weighted variant, tuned against self-play
 
-# Status: Phase 2
+# Status: Phase 3
 
-Worked on the foundation: data structures and core game logic. 
+Worked on the foundation: data structures and core game logic + basic vasiualization (to be imoroved using Gtk4) 
 
-Currently working on a playable Visualization
+Currently working on developing playing strategies for the classic (unweighted) game using the Kishi and Kajitani Algorithm
 
 # Background
 
