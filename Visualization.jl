@@ -1,6 +1,6 @@
 include("source.jl")
  
-# Prints the current board (edge list with state) plus whose turn it is
+# prints the current board (edge list with state) plus whose turn it is
 # or, once the game is over, who won. This covers the "show current
 # player / game status / winner" bonus point for free, in text form.
 
@@ -45,7 +45,7 @@ function prompt_move(state::GameState)::Union{Edge, Nothing}
     end
 end
  
-# Drives a full game from start to finish in the REPL/terminal.
+# Drives a full game from start to finish in the terminal.
 function play_repl(g::GameGraph)
     state = new_game(g)
     print_state(state)
@@ -62,11 +62,12 @@ function play_repl(g::GameGraph)
     return state
 end
 
+# Goal: only auto-start a demo game when run standalone, so the functions stay safely reusable when included in the the future Gtk4 app
 if abspath(PROGRAM_FILE) == @__FILE__
     g = random_graph(6, 8)
     play_repl(g)
 end
  
-
+#will be improved later using Gtk4 Package
 
 
