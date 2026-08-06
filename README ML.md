@@ -12,7 +12,7 @@ The study investigates roof detection from an extremely small training dataset c
 - **YOLO26n-seg**
 - **RF-DETR Seg**
 
-All models were initialized from COCO-pretrained weights and fine-tuned on the same training dataset under comparable experimental conditions.
+The evaluated models used pretrained weights and were fine-tuned on the same training dataset under comparable experimental conditions.
 
 ---
 
@@ -33,12 +33,12 @@ All models were initialized from COCO-pretrained weights and fine-tuned on the s
 │
 ├── README.md
 │
-└── Predict/
-    ├── baseline_yolov8n Predict
-    ├── baseline_yolo26n_100ep Predict
-    ├── baseline_yolo26n_150ep Predict
-    ├── sahi_inference Predict
-    └── augmentation Predict
+└── predictions/
+    ├── baseline_yolov8n_predictions/
+    ├── baseline_yolo26n_100ep_predictions/
+    ├── baseline_yolo26n_150ep_predictions/
+    ├── sahi_inference_predictions/
+    ├── augmentation_predictions/
     └── unseen_test_predictions.zip
 ```
 
@@ -50,21 +50,21 @@ All experiments were developed and executed in **Google Colab** using GPU accele
 
 # Experimental Runs
 
-| Run | Model | Training Images | Configuration | Evaluation Outcome | Observation |
-|---|---|---:|---|---|---|
-| **baseline_yolov8n** | YOLOv8n-seg | 25 | 100 epochs | Detected the majority of roof instances in the held-out evaluation images; roof c and roof b were not detected. | Used as one of the baseline models for comparison. |
-| **baseline_yolo26n_100ep** | YOLO26n-seg | 25 | 100 epochs | Detected the majority of roof instances; roof c was not detected. | Selected as the baseline for subsequent experiments. |
-| **baseline_yolo26n_150ep** | YOLO26n-seg | 25 | 150 epochs | Produced a similar evaluation outcome to the 100-epoch model. | No observable difference was found during the evaluation. |
-| **baseline_rfdetr** | RF-DETR Seg | 25 | Default configuration | Detected the majority of roof instances; roof c, roof a, and roof b were not detected. | Under the evaluated conditions, no qualitative advantage was observed despite the higher computational cost. |
-| **sahi_inference** | YOLO26n-seg | 25 | SAHI tiled inference without retraining | Produced similar predictions to the baseline model; roof c remained undetected. | No observable benefit was identified for this evaluation set. |
-| **augmentation_0** | YOLO26n-seg | 28 | Three augmented images using 0.5× scaling and rotations (30°, 60°, 90°) | Roof c remained undetected, and roof a was additionally missed. | This augmentation strategy did not produce an observable improvement for the evaluated cases. |
-| **augmentation_1** | YOLO26n-seg | 29 | Three augmented images using 0.5× scaling and one augmented image using 0.25× scaling; no rotation | Roof c was detected, while one large roof and roof b were not detected. Additional false-positive predictions were observed on shadows and vegetation. | Within this case study, the augmentation changed prediction behaviour, improving some cases while introducing additional errors. |
+| Run | Model | Training Images | Configuration | Evaluation Outcome |
+| --- | --- | ---: | --- | --- |
+| **baseline_yolov8n** | YOLOv8n-seg | 25 | 100 epochs | Detected the majority of roof instances in the held-out evaluation images; Roof C and Roof B were not detected. |
+| **baseline_yolo26n_100ep** | YOLO26n-seg | 25 | 100 epochs | Detected the majority of roof instances; Roof C was not detected. Selected as the baseline for subsequent experiments. |
+| **baseline_yolo26n_150ep** | YOLO26n-seg | 25 | 150 epochs | Produced a similar evaluation outcome to the 100-epoch model. No observable difference was found during evaluation. |
+| **baseline_rfdetr** | RF-DETR Seg | 25 | Default configuration | Detected the majority of roof instances; Roof C, Roof A, and Roof B were not detected. No qualitative advantage was observed despite higher computational requirements. |
+| **sahi_inference** | YOLO26n-seg | 25 | SAHI tiled inference without retraining | Produced similar predictions to the baseline model; Roof C remained undetected. |
+| **augmentation_0** | YOLO26n-seg | 28 | Three augmented images using 0.5× scaling and rotations (30°, 60°, 90°) | Roof C remained undetected, and Roof A was additionally missed. |
+| **augmentation_1** | YOLO26n-seg | 29 | Three augmented images using 0.5× scaling and one augmented image using 0.25× scaling; no rotation | Roof C was detected, while one large roof and Roof B were not detected. Additional false-positive predictions were observed on shadows and vegetation. |
 
 ---
 
 # Methodology
 
-The experiments followed a controlled experimental design in which one variable was modified at a time.
+The experiments followed a controlled design in which individual interventions were evaluated separately.
 
 The investigation included:
 
@@ -73,7 +73,9 @@ The investigation included:
 - inference-time control using SAHI,
 - two targeted small-object augmentation strategies,
 - evaluation on a held-out test set,
-- evaluation on previously unseen AIRS images.
+- qualitative evaluation on previously unseen AIRS images.
+
+The AIRS evaluation did not use ground-truth annotations; results were assessed through visual inspection only.
 
 ---
 
@@ -82,8 +84,8 @@ The investigation included:
 - Under the evaluated conditions, YOLO26n-seg was selected as the baseline model for further experimentation.
 - Extending training from 100 to 150 epochs did not produce an observable difference on the evaluated images.
 - Applying SAHI tiled inference produced similar predictions to the baseline model.
-- The scale-only augmentation strategy recovered roof c but also introduced additional missed detections and false-positive predictions.
-- Evaluation on previously unseen AIRS images showed generally satisfactory predictions across many scenes, while smaller roof structures continued to represent challenging cases.
+- The scale-only augmentation strategy recovered Roof C but also introduced additional missed detections and false-positive predictions.
+- Evaluation on previously unseen AIRS images showed roof predictions in many scenes, while smaller roof structures continued to represent challenging cases.
 - The experiments illustrate that automatic validation metrics and evaluation on unseen images can provide different perspectives when working with extremely small datasets.
 
 ---
@@ -96,9 +98,9 @@ The implementation and experimental workflow were informed by:
 - RF-DETR documentation and GitHub repository
 - SAHI documentation and GitHub repository
 - Additional references listed in the accompanying report
-- AI References Transparency (see accompanying PDF)
+- AI usage transparency documentation (see accompanying PDF)
 
-Claude and ChatGPT were used as research assistants for:
+Claude and ChatGPT were used as AI-assisted tools for:
 
 - literature exploration,
 - reference identification,
@@ -124,5 +126,3 @@ The experiments were executed using:
 - NumPy
 - PIL
 - Supervision
-
----
