@@ -88,6 +88,12 @@ The AIRS evaluation did not use ground-truth annotations; results were assessed 
 - Evaluation on previously unseen AIRS images showed roof predictions in many scenes, while smaller roof structures continued to represent challenging cases.
 - The experiments illustrate that automatic validation metrics and evaluation on unseen images can provide different perspectives when working with extremely small datasets.
 
+# External Qualitative Evaluation on AIRS Dataset
+
+The selected baseline model (**YOLO26n-seg, 100 epochs**) was additionally evaluated on 80 previously unseen aerial images from the public AIRS dataset. These images were not used during training or model selection. As no ground-truth annotations were available, evaluation was performed through visual inspection only.
+
+The model detected roof instances in many unseen images, while smaller and partially occluded roofs remained more difficult to detect. This evaluation provides additional qualitative observations of model behaviour beyond the client dataset.
+
 ---
 
 # References and Resources
@@ -97,14 +103,14 @@ The implementation and experimental workflow were informed by:
 - Ultralytics documentation and GitHub repository
 - RF-DETR documentation and GitHub repository
 - SAHI documentation and GitHub repository
-- Additional references listed in the accompanying report
+- Additional references listed in the accompanying paper
 - AI usage transparency documentation (see accompanying PDF)
 
 Claude and ChatGPT were used as AI-assisted tools for:
 
 - literature exploration,
 - reference identification,
-- implementation support,
+- targeted implementation guidance,
 - debugging assistance,
 - scientific writing support.
 
@@ -118,7 +124,6 @@ The experiments were executed using:
 
 - Google Colab
 - Python 3.11
-- PyTorch
 - Ultralytics
 - RF-DETR
 - SAHI
